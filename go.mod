@@ -1,4 +1,4 @@
-module font
+module fonthas
 
 go 1.17
 
