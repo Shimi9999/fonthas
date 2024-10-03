@@ -80,7 +80,7 @@ const BUFSIZE = 1024
 func loadCsv(path string) ([][]string, error) {
 	file, err := os.Open(path)
 	if err != nil {
-		return nil, fmt.Errorf("invalid csv file path: " + err.Error())
+		return nil, fmt.Errorf("csv file open: %w", err)
 	}
 	defer file.Close()
 
@@ -92,7 +92,7 @@ func loadCsv(path string) ([][]string, error) {
 			break
 		}
 		if err != nil {
-			return nil, fmt.Errorf("CSV file read error: " + err.Error())
+			return nil, fmt.Errorf("csv file read: %w", err)
 		}
 
 		csvStr += string(buf[:n])
@@ -101,7 +101,7 @@ func loadCsv(path string) ([][]string, error) {
 	r := csv.NewReader(strings.NewReader(csvStr))
 	records, err := r.ReadAll()
 	if err != nil {
-		return nil, fmt.Errorf("CSV string read error: " + err.Error())
+		return nil, fmt.Errorf("csv string read: %w", err)
 	}
 
 	return records, nil
